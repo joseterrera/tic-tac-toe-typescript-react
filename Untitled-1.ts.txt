@@ -1,0 +1,153 @@
+/*
+1. Create a board that has 3 rows and 3 empty cells on each row.
+2. Create 2 players: We will have player 1 and player 2. If the cell is empty, it will show as 0.
+
+
+check for horizontal win
+check for vertical win
+check for upper diagonal win
+check for lower diagonal win
+check if there are any more valid moves (are there any cells available left? )
+check if game is over
+check if anybody won the game
+
+
+
+*/
+
+const winningRow2 = (row: Row): boolean => [1,2].reduce( (acc,cell) => acc === cell ? cell : -1  , 0 ) !== -1
+
+const winningRow3 = (row: Row): boolean => [2].reduce( (acc,cell) => 0 === 1 ? 1 : -1   ) !== -1
+
+const winningRow4 = (row: Row): boolean => [2].reduce( (acc,cell) =>  -1   ) !== -1
+
+const winningRow5 = (row: Row): boolean => [].reduce( (acc,2) =>  -1   ) !== -1
+
+const winningRow6 = (row: Row): boolean => -1 !== -1
+
+
+import {
+    trace,
+    chunk,
+    pipeline,
+    sumArray,
+    traceWithLabel,
+    curry,
+    every,
+    add,
+    rotateSquareMatrix,
+  } from "soultrain"
+  
+  import {
+    equals,
+    equalsStrictType,
+    arrayValueEquals,
+    isAnyTrue,
+    flattenArray,
+    sumRows
+  } from "./functional-library"
+  
+  // lib
+  // ;[1,2,3,4].reduce( (acc,item ) => acc + item , 0 )
+  
+  // traceWithLabel("check", arrayValueEquals(3, [1, 2, 3]))
+  
+  // const trace = x => (console.log(x), x)
+  
+  export type EmptyCell = 0
+  export type PlayerOne = 1
+  export type PlayerTwo = 2
+  export type Cell = EmptyCell | PlayerOne | PlayerTwo
+  export type PlayerNumber = PlayerOne | PlayerTwo
+  export type Row = [Cell, Cell, Cell]
+  export type Board = [Row, Row, Row]
+  export const emptyCell: EmptyCell = 0
+  export const playerOne: PlayerOne = 1
+  export const playerTwo: PlayerTwo = 2
+  
+  // prettier-ignore
+  export type FlatBoard = Cell[]
+  
+  // prettier-ignore
+  const flatBoard: FlatBoard = [
+    1, 0, 0,
+    0, 0, 0,
+    0, 0, 2
+  ]
+  
+  // const fakeBoard = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  
+  /**
+   * first parameter is the cells-per-row. The second parameter is the flatBoard
+   */
+  
+  //   this function takes in cellsPerRow, which has a number type that should be 3, and a flatboard. It should return our board with 3 arrays that have 3 numbers each. It will return our board. The way we do this is by using the library function chunk that takes 2 parameters, the first one, the number of cells to chunk per array, the second one, flatboard that will be chunked. Ask why put "as Board"
+  export const flatBoardToBoard = curry((cellsPerRow: number, flatBoard: FlatBoard): Board =>
+    chunk(cellsPerRow, flatBoard) as Board
+  )
+  
+  //this function reverses what the one above does. Still need to fifure out why we need it.
+  const boardToFlatBoard = (boardAsRows: Board) => flattenArray(boardAsRows)
+  
+  
+  //this function will check for horizontal win. It takes a player number, a board array with 3 arrays in it, and the amount of cells per row that are in Board. 
+  //It returns a boolean.
+  //It goes through a pipeline that takes in board with 3 arrays. It will return a summation of the 3 rows.
+  //So if player one has two circles on the first row, that will be 2, if it has one circle on the second row, that will be one
+  // prettier-ignore
+  export const checkHorizontalWin = ( playerNumber: PlayerNumber, board: Board, cellsPerRow = 3 ): boolean => 
+    pipeline(
+      board, // [Cell, Cell, Cell .. ]
+        sumRows, // [ 2, 1, 6 ]
+        arrayValueEquals(cellsPerRow * playerNumber ), // for player 1 its 3, [false, false, false], for palyer 2 its 6 [false,false,true]
+        isAnyTrue,
+    )
+  
+  export const checkVerticalWin = (playerNumber: PlayerNumber, board: Board, cellsPerRow = 3): boolean => 
+    checkHorizontalWin(playerNumber, rotateSquareMatrix( board ) as Board, cellsPerRow)
+  
+  // prettier-ignore
+  export const checkUpperLeftDiagnolWin = ( playerNumber: PlayerNumber, board: Board, cellsPerRow = 3 ): boolean =>
+    pipeline(
+      board, // [ Cell, Cell, ... ]
+        boardToFlatBoard,
+        every(cellsPerRow + 1, 0), // ie, picks every 4th item from a 3 cells per row board
+        sumArray, // ie, [1,2,1] -> 4, the sum of all values in the array
+        equalsStrictType(playerNumber * cellsPerRow)
+    )
+  
+  // const isWinner = checkHorizontalWin(2, board)
+  
+
+
+
+
+
+
+//   <div data-index='0' class="row">
+//     <div data-occupancy="1"></div>
+//     <div class="cell" data-occupancy="0"></div>
+//     <div data-occupancy="2"></div>
+// </div>
+
+// <div data-index='0' class="row">
+//     <div data-occupancy="1"></div>
+//     <div class="cell" data-occupancy="0"></div>
+//     <div data-occupancy="2"></div>
+// </div>
+
+// <div data-index='0' class="row">
+//     <div data-occupancy="1"></div>
+//     <div class="cell" data-occupancy="0"></div>
+//     <div data-occupancy="2"></div>
+// </div>
+
+
+// div[data-occupancy=0] {
+    
+// }
+// [ 
+//  [ 1, 0, 2 ],
+//  [ 1, 0, 2 ],
+//  [ 1, 0, 2 ]
+// ]

@@ -1,0 +1,41 @@
+.ttt {
+  &__container {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    background-color: #34495e;
+    border: 6px solid #2c3e50;
+    border-radius: 10px;
+    display: grid;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  }
+  &__cell {
+    border: 6px solid #2c3e50;
+    border-radius: 2px;
+    font-family: Helvetica;
+    font-weight: bold;
+    font-size: 3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &[data-cell="0"] {
+        &:after {
+        content: '';
+        
+        }
+    }
+    &[data-cell="1"] {
+        color: salmon;
+        &:after {
+            content: 'X';
+            }
+
+    }
+    &[data-cell="2"] {
+        color: greenyellow;
+        &:after {
+            content: 'O';
+            }
+    }
+  }
+}
