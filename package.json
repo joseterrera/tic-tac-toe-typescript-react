@@ -10,7 +10,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-scripts-ts": "^2.13.0",
-    "soultrain": "0.0.8"
+    "soultrain": "^0.0.12"
   },
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/",
@@ -26,6 +26,7 @@
     "@types/node": "^9.4.6",
     "@types/react": "16.0.38",
     "@types/react-dom": "16.0.4",
+    "ts-node": "^7.0.0",
     "typescript": "^3.0.1"
   }
 }

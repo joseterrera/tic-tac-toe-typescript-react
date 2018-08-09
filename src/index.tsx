@@ -1,7 +1,6 @@
 import * as React from "react"
 import { render } from "react-dom"
-import Hello from "./Hello"
-import { newBoard, Board } from "./tic-tac-toe-functions"
+import { newBoard, Board, PlayerNumber } from "./tic-tac-toe-functions"
 import { GameBoard } from   "./TicTacToe"
 
 const styles = {
@@ -10,17 +9,18 @@ const styles = {
 }
 
 
-const callback = (board: Board) => 
-  render(<App board={board}/>, document.getElementById("root"))
+const callback = (board: Board, player: PlayerNumber) => 
+  render(<App board={board} player={player}/>, document.getElementById("root"))
 
 interface IApp {
-  board: Board
+  board: Board,
+  player: PlayerNumber
 }
 
-const App : React.SFC<IApp> = ({board}) => (
+const App : React.SFC<IApp> = ({board,player}) => (
   <div style={styles}>
-    <GameBoard board={board} renderCallback={ callback }/>
+    <GameBoard board={board} renderCallback={ callback } player={player}/>
   </div>
 )
 
-render(<App board={newBoard}/>, document.getElementById("root"))
+render(<App board={newBoard} player={1}/>, document.getElementById("root"))

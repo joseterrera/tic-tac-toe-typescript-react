@@ -26,3 +26,5 @@ export const flattenArray = <A>(arr: A[]): FlattenArray<A[]>  =>
   arr.reduce((acc, item) => acc.concat(item ), [] as A[] ) as FlattenArray<A[]>
 
 export const sumRows = mapArray(sumArray)
+
+export const splitAt = <A>(num: number, arr: A[]): [A[],A[]] => [arr.slice(0,num),arr.slice(num,Infinity)]
