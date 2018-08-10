@@ -3819,6 +3819,10 @@ ignore-walk@^3.0.1:
   dependencies:
     minimatch "^3.0.4"
 
+immutable-lens@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/immutable-lens/-/immutable-lens-0.4.1.tgz#fef3e3061a1b279abc104011c3cdbfab1d8f3597"
+
 import-lazy@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/import-lazy/-/import-lazy-2.1.0.tgz#05698e3d45c88e8d7e9d92cb0584e77f096f3e43"
@@ -7328,9 +7332,9 @@ sort-keys@^2.0.0:
   dependencies:
     is-plain-obj "^1.0.0"
 
-soultrain@^0.0.12:
-  version "0.0.12"
-  resolved "https://registry.yarnpkg.com/soultrain/-/soultrain-0.0.12.tgz#4ae134c9b5c7e5a6b23aeff7c53a2047b38fa323"
+soultrain@^0.0.13:
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/soultrain/-/soultrain-0.0.13.tgz#cbf445d770e8a4778828ad0dfd25cd78ceca8605"
   dependencies:
     fp-ts "^1.7.0"
 
