@@ -1,5 +1,67 @@
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+## To start this project
 
+### `yarn install`
+### `yarn start`
+
+
+## Authors and Resources
+This project was built with [@babakness](https://github.com/babakness/). It is a tic tac toe game using functional programming concepts together with typecscript. We used heavily [soultrain](https://github.com/babakness/), which is a functional library using typescript, to build the functionality of the game, and we've also used some functors and monads, the Maybe monad more specifically, which resembles in some ways an if/else statement.
+
+
+## Motivation
+To further my understanding of functional programming and typescript, by applying it to a project. I had all the concepts in my head, after many tutorials, readings and exercises. I wanted to force myself to write more clear code. Typescript constrains me to think more thorouthly about the functions that I use, and how I use them. It gives me clues, and helps me see my bugs before runtime. Functional programming is the direction javaScript is going. The functions are reusable, and chainable, which makes the code more sturdy, because these are functions that have been tested.
+
+
+## Work Process
+### Mechanics
+With this project, I was able to understand better the functional programming workflow, which in retrospect looked a bit like this:
+1. Uncover mechanics and functionality of the app at a high level.
+2. We started working on tic-tac-toe.ts, building  functionality of the game, creating types, and pseudo coding the functions that our app would need. This file uses soultrain the most. Probably the most memorable function is the pipeline helper function, which behaves as the proposed pipe operator in JS: https://github.com/tc39/proposal-pipeline-operator. WHen using the pipeline operator, the output of a function becomes the input of a new one, which reminds me of unix.
+3. Typescript is a superset of javascript. It can progressively be added to our code. By default, every type in javaScript (objects, arrays, strings) has an 'any' type. When you indicate types, you are expressing to your function that it takes a specific type of parameter, and that it returns a specific type. Not only it aids in documenting this function to other developers who may need to use it by indicating what it takes and what it will return, but it also notices right away if something is missing or does not match the types. Basically, there is a red highlight until conditions are met. Using visual studio code, you can hover on it and get more indications on how this function works.
+
+Here is an example of one of our functions:
+```js
+export const flatBoardToBoard = curry((cellsPerRow: number, flatBoard: FlatBoard): Board =>
+  chunk(cellsPerRow, flatBoard) as Board
+)
+```
+
+This function will take a flatboard and make it into our board, which is an array with three arrays inside of it, each of which will be a row.
+Using the curry function defined on soultrain, we add types to our parameters: cellsPerRow and flatBoard. It will return a board, which has already been defined in our types. So, if we were to pass as a parameter, instead of a FlatBoard, some other kind of array, the function will get highlighted until the error is fixed.
+
+Typescript then minimizes runtime errors, and helps minimize oversights that may happen as we are writing our functions. 
+
+
+### Adding UI
+
+####React
+We used React Stateless Components. The two files that handle the UI are index.tsx and TicTacToe.tsx.
+
+####index.tsx
+
+We start reading it from index.tsx. At the bottom of this file there is an init() function that initially renders the game. In this file we have our parent component App. There is an interface that has restricted our App to take two values: board and player, with their respective types that were defined on tic-tac-toe-functions.ts. The app component uses a Maybe monad, which I described above, as something close to a conditional statement.
+The chain method will check if there are any winners. If there aren't it will return nothing, if there are, it will return the winners. 
+When there is a winner, the PlayerNumber winner will display, the GameBoard will re render, but now it will be disabled ( disable={true} ), and a reset button will reset the board by calling the init function onClick.
+If there are no winners, JoinOrValue will be invoked, It will check that there are no empty squares.
+If the condition checks true, there are no empty squares and no winners and it is a tie. If not, game is still going on.
+
+####tic-tac-toe.tsx
+
+This file has 2 stateless components. GameBoard and GameBoardRow. As far as types, we define an interface for both of these components, and we also create a ty
+
+
+
+
+
+
+
+This is a tic tac toe game built using functional programming and typescript.
+I’ve built it with @babakness it using his soul train library, which roughly works like rambda but it has types.
+
+
+
+
+This project was bootstrapped with 
 Below you will find some information on how to perform common tasks.<br>
 You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
 

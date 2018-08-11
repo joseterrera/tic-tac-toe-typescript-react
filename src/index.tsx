@@ -45,6 +45,7 @@ const App : React.SFC<IApp> = ({board,player}) => (
             :  <div>
                 Game on!
                 <GameBoard board={board} renderCallback={ callback } player={player} disable={false}/>
+                <button onClick={init}>RESET</button> 
               </div>
         )
     }
@@ -56,6 +57,3 @@ const init = () =>
   render(<App board={newBoard} player={1} />, document.getElementById("root"))
 
 init()
-
-// if there are no winningPlayers, we still wanna check
-//we 
