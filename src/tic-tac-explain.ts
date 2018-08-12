@@ -1,3 +1,22 @@
+/*
+Some notes 
+1. Create a board that has 3 rows and 3 empty cells on each row.
+2. Create 2 players: We will have player 1 and player 2. If the cell is empty, it will show as 0.
+
+
+check for horizontal win
+check for vertical win
+check for upper diagonal win
+check for lower diagonal win
+check if there are any more valid moves (are there any cells available left? )
+check if game is over
+check if anybody won the game
+
+
+
+*/
+
+
 // these are the functions imported from the helper library
 import {
   trace,

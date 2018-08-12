@@ -11,6 +11,7 @@ import {
   arrayItemsMeetPredicate
 } from "soultrain"
 
+
 import {
   flattenArray,
   contains,
@@ -43,8 +44,17 @@ export const flatBoardToBoard = curry((cellsPerRow: number, flatBoard: FlatBoard
   chunk(cellsPerRow, flatBoard) as Board
 )
 
+/**
+ * Takes a 2D board and flattens it by a single level
+ * @param boardAsRows a Board type that will be flattened by one level
+ * @example
+ * const boardToFlatBoard([ [0,0,0], [0,0,0], [0,0,0] ] as Board)
+ * // => [0,0,0,0,0,0,0,0,0]
+ */
 export const boardToFlatBoard = (boardAsRows: Board) => flattenArray(boardAsRows)
 
+
+boardToFlatBoard
 export const playerWinsRow = (playerNumber: PlayerNumber) => arrayItemsMeetPredicate( (cell1,cell2) => cell1 === cell2 && cell1 === playerNumber )
 
 export const checkHorizontalWin = ( playerNumber: PlayerNumber, board: Board, cellsPerRow = 3 ): boolean => 

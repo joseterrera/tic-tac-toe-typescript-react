@@ -20,7 +20,12 @@ interface IGameBoard {
   disable: boolean
 }
 
-export const GameBoard : React.SFC<IGameBoard> = ({board,renderCallback, player,disable}) => (
+export const GameBoard : React.SFC<IGameBoard> = ({
+  board,
+  renderCallback, 
+  player,
+  disable
+}) => (
   <div 
     className="ttt__container">
     { board.map( (row,rowIndex) => <GameBoardRow key={rowIndex} 
