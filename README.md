@@ -5,7 +5,7 @@
 
 
 ## Authors and Resources
-This project was built with [@babakness](https://github.com/babakness/). It is a tic tac toe game using functional programming concepts together with typecscript. We relied heavily [soultrain](https://github.com/babakness/), which is a functional library using typescript, to build the functionality of the game, and we've also used some functors and monads.
+This project was built with [@babakness](https://github.com/babakness/). It is a tic tac toe game using functional programming concepts together with typecscript. To build the functionality of the game, we relied heavily on [soultrain](https://github.com/babakness/), a functional library that uses typescript.
 
 
 ## Motivation
@@ -21,7 +21,7 @@ To use Typescript, which constraints the way I use functions and variables, thus
 ### Mechanics
 
 ####tic-tac-toe.functions
-This is where we started building the functionality of the game, creating types, and pseudo coding the functions that our app would need. This file uses soultrain the most. Probably the most used function is the pipeline helper function, which behaves as the proposed pipe operator in JS: https://github.com/tc39/proposal-pipeline-operator. WHen using the pipeline operator, the output of a function becomes the input of a new one, something similar to the pipe operator in unix. 
+This is where we started building the functionality of the game, creating types, and pseudo coding the functions that our app would need. This file uses soultrain the most. Probably the most used function is the pipeline helper function, which behaves as the proposed [pipeline operator in JS](https://github.com/tc39/proposal-pipeline-operator). WHen using the pipeline operator, the output of a function becomes the input of a new one, something similar to the pipe operator in unix. 
 Typescript is a superset of javascript. It can progressively be added to a project. By default, every type in javaScript (objects, arrays, strings) has an 'any' type. When you indicate types, you are expressing to your function that it takes a specific type of parameter, and that it returns a specific type. This practice prevents runtime errors, since it immediately hightlights the text when something is missing. It also aids in documentation, as it helps other developers visualize better how a function works and what it will return.
 
 Here is an example of one of the functions in this project using typescript:
@@ -46,8 +46,6 @@ The chain method will check if there are any winners. If there aren't it will re
 If there is a winner, the PlayerNumber winner will display, the GameBoard will re render, but now it will be disabled ( disable={true} ), and a reset button will reset the board by calling the init function onClick.
 If there is no winner, the map operator will return nothing.
 Join or value (which is meant to return this.value) will first check that there are no empty squares. If the condition evaluates to true, it will be a tie game, if not, the board will re render.
-
-
 
 ####tic-tac-toe.tsx
 
