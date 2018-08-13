@@ -3,7 +3,6 @@ import {
   checkHorizontalWin,
   playerOne,
   playerTwo,
-  playerNumber,
   flatBoardToBoard,
   checkUpperDiagnolWin,
   Board,
