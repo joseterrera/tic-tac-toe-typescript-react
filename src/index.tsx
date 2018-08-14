@@ -28,7 +28,8 @@ const App : React.SFC<IApp> = ({board,player}) => (
         .chain( winners => winners.length === 0 ? nothing : safeHead(winners))
         .map( winner => 
           <div>
-            <h2 className="message message__${winner}">Player {winner} won</h2>
+            <h2 className={`message 
+            message__${winner}`}>Player {winner} won&nbsp;&nbsp;&nbsp;😎</h2>
             <GameBoard board={board} renderCallback={ callback } player={player} disable={true}/>
             <button className="button button__reset" onClick={init}>RESET</button>
           </div>
@@ -37,7 +38,7 @@ const App : React.SFC<IApp> = ({board,player}) => (
           hasNoEmptySquare(board) 
             /* No valid moves remain */
             ?  <div>
-                <h2 className="message message__tie">Tie game</h2>
+                <h2 className="message message__tie">It's a tie!&nbsp;&nbsp;&nbsp;🤔</h2>
                 <GameBoard board={board} renderCallback={ callback } player={player} disable={false}/>
                 <button className="button button__reset" onClick={init}>RESET</button> 
               </div>
