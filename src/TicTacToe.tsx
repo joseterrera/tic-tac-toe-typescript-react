@@ -2,10 +2,9 @@ import * as React from "react"
 import { render } from "react-dom"
 import { Row,Cell,Board, PlayerNumber, } from './tic-tac-toe-functions'
 import './TicTacToe.css'
-import { Maybe, safeProp, nothing, Function1, pipeline, mapArray, K } from "soultrain"
+import { Maybe, safeProp, nothing, Function1, pipeline, mapArray, K, always } from "soultrain"
 import { emptyCell } from "./tic-tac-toe-functions";
-import {createLens} from 'immutable-lens'
-import { trace } from "soultrain";
+import { trace, Lens } from "soultrain";
 
 export type RenderCallback = (
   board: Board, 
@@ -34,14 +33,11 @@ export const GameBoard : React.SFC<IGameBoard> = ({
 ) 
 
 
-// Immutable lens doesn't currently support arrays correctly
-const forceArray = obj =>   Object.keys(obj).map( i => obj[i] )
-
-const fixBoard = (board: Board): Board =>
-  pipeline(
-    forceArray(board),
-    mapArray( row => forceArray(row))
-  ) as Board
+/**
+ * Take turns amongst players
+ * @param player PlayerNumber to switch from
+ */
+const changePlayer = (player: PlayerNumber): PlayerNumber => player === 1 ? 2 : 1
 
 interface IGameBoardRow {
   renderCallback: RenderCallback
@@ -63,16 +59,20 @@ export const GameBoardRow : React.SFC<IGameBoardRow>= ({
     { 
       row.map( (cellValue:Cell, cellIndex: number) => {
 
-        const callback : Function1<{},void> = disable 
-          ? () => {} 
-          : Maybe.of(
-              createLens<Board>().focusPath(rowIndex,cellIndex)
+        // construct callback
+        const callback : Function1<{},void> =  
+          disable || cellValue !== emptyCell
+            // if board disable or not an empty cell
+            ? () => {} 
+            // otherwise construct callback rerendering board with player's move 
+            // and other players turn when invoked
+            : () => renderCallback(
+                Lens.type<Board>().of( [ rowIndex, cellIndex ] )
+                  .map( _ => player  ) 
+                  .fold( player, board ),
+                changePlayer(player)
             )
-              .chain( lens => lens.read(board) === emptyCell ? Maybe.of(lens) : nothing )
-              .map( lens => lens.setValue(player))
-              .map( updater => updater(board) )
-              .map( (nextBoard) => () => renderCallback(fixBoard( nextBoard ), player === 1 ? 2 : 1))
-              .joinOrValue( () => {} )
+
 
         return (
           <div 
