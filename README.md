@@ -3,11 +3,6 @@
 ### `yarn install`
 ### `yarn start`
 
-
-## Authors and Resources
-This project was built with [@babakness](https://github.com/babakness/). It is a tic tac toe game using functional programming concepts together with typecscript. To build the functionality of the game, we relied heavily on [soultrain](https://github.com/babakness/), a functional library that uses typescript.
-
-
 ## Motivation
 To write code that is functional, reusable, chainable.  
 To use Typescript, which constraints the way I use functions and variables, thus reducing runtime errors.
